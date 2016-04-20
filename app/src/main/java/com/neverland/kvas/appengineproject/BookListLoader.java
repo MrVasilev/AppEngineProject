@@ -44,6 +44,9 @@ public class BookListLoader extends AsyncTaskLoader<List<String>> {
 
         try {
             List<Book> bookList = mMyApiService.list().execute().getItems();
+            if (bookList == null) {
+                throw new IOException();
+            }
             List<String> result = new ArrayList<>();
             for (Book book : bookList) {
                 result.add("\"" + book.getTitle() + "\"" + " by " + book.getAuthor());
